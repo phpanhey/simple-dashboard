@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,44 +10,35 @@
   </head>
 <body>
 
-<?php 
-function calculateMemory(){
-  $pieces = array_filter(explode(" ", shell_exec("free -m")));
-  $res =[];
-  array_push($res,$pieces[53],$pieces[61],$pieces[68]);
-  return $res;
-}
-
-function getRunningContainerNames(){
-  return array_filter(explode("\n", shell_exec("docker ps --format \"{{.Names}}\"")));
-}
-$mem = calculateMemory();
-$container = getRunningContainerNames();
+<?php
+    function calculateMemory()
+    {
+    $memfile  = file("/proc/meminfo");
+    $memindex = [];
+    $res      = [];
+    foreach ($memfile as $item) {
+        $key   = [];
+        $value = [];
+        preg_match("/[0-9]+/", $item, $value);
+        preg_match("/[a-zA-Z]+/", $item, $key);
+        $memindex[$key[0]] = $value[0];
+    }
+    $res["total"]     = round($memindex["MemTotal"] / 1024);
+    $res["available"] = round($memindex["MemAvailable"] / 1024);
+    $res["used"]      = round(($memindex["MemTotal"] - $memindex["MemAvailable"]) / 1024);
+    return $res;
+    }
+    $mem = calculateMemory();
 ?>
 <div class="container">
   <h1>simple -- arsd</h1>
-
-
-<!-- container -->
-<h3>container</h3>
-<ul>
-
-<?php
-foreach ($container as $c) {
-  echo "<li>" .$c ."</li>";
-}
-?>
-
 <!-- memory -->
 </ul>
   <h3>memory in mb</h3>
     <?php
-      echo  "Used: " . $mem[1] . " Free: " . $mem[2];
+        echo "Used: " . $mem["used"] . " available: " . $mem["available"];
     ?>
-
-    <progress value="<?php echo $mem[1] ?>" max="<?php echo $mem[0] ?>" />
-
-
+    <progress value="<?php echo $mem["used"] ?>" max="<?php echo $mem["total"] ?>" />
 </div>
 </body>
 </html>
