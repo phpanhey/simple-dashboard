@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css">
   </head>
 <body>
-
 <?php
     function calculateMemory()
     {
@@ -31,14 +30,23 @@
     $mem = calculateMemory();
 ?>
 <div class="container">
-  <h1>simple -- arsd</h1>
+  <h1>~simple -- </h1>
 <!-- memory -->
-</ul>
-  <h3>memory in mb</h3>
-    <?php
-        echo "Used: " . $mem["used"] . " available: " . $mem["available"];
-    ?>
-    <progress value="<?php echo $mem["used"] ?>" max="<?php echo $mem["total"] ?>" />
+<article>
+    <h3>memory</h3>
+      <?php
+          echo "used: " . $mem["used"] . " mb" . " | available: " . $mem["available"] . " mb";
+      ?>
+      <progress value="<?php echo $mem["used"] ?>" max="<?php echo $mem["total"] ?>" />
+</article>
+
+<!-- links -->
+<article>
+    <h3>fav</h3>
+    <ul>
+      <li><a href="http://192.168.178.135:8000/dashboard">paperless ngx</a></li>
+    </ul>
+</article>
 </div>
 </body>
 </html>
