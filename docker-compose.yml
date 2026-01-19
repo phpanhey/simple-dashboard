@@ -1,0 +1,11 @@
+services:
+  webserver:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./data:/usr/data
+#    env_file: docker-compose.env
+volumes:
+  data:
