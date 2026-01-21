@@ -1,6 +1,8 @@
 services:
   webserver:
     image: simpledashboard
+    env_file:
+      - .env
     build: .
     restart: unless-stopped
     ports:
