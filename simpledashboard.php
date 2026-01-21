@@ -53,7 +53,8 @@
     }
 
     $mem       = calculateMemory();
-    $diskspace = calculateDiskSpace("/dev/mapper/root");
+    $diskspace = calculateDiskSpace("/dev/vg1/volume_1");
+
 ?>
 <div class="container">
   <h1>~simple -- </h1>
@@ -79,7 +80,7 @@
         <?php
             echo "used: " . $diskspace["used"] . " | available: " . $diskspace["available"];
         ?>
-        <progress value="<?php echo deleteLastChar($mem["used"]) ?>" max="<?php echo deleteLastChar($mem["total"]) ?>" />
+        <progress value="<?php echo deleteLastChar($diskspace["used"]) ?>" max="<?php echo deleteLastChar($diskspace["total"]) ?>" />
   </article>
 </div>
 
