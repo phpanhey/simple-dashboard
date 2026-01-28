@@ -91,6 +91,7 @@
  </svg>  fav</h3>
     <ul>
     <li><a href=<?php echo getenv("PAPERLESS_URL")?>>paperless ngx</a></li>
+    <li><a href=<?php echo getenv("YELLYFIN_URL")?>>yellyfin</a></li>
     </ul>
 </article>
 </div>
